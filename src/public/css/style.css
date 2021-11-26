@@ -11,9 +11,8 @@ html {
 
 body {
   min-height: 100vh;
-  background: url("/assets/img/bg.jpg") no-repeat;
-  background-size: cover;
-  background-position: center;
+  background: #121212;
+  color: #fff;
   display: flex;
 }
 
@@ -24,7 +23,7 @@ a {
 
 /* sidebar */
 .sidebar {
-  background: rgba(255, 255, 255, 0.2);
+  background: #2a2a2a;
   backdrop-filter: blur(15px);
   width: 250px;
   height: 100vh;
@@ -108,6 +107,13 @@ a {
 
 .main {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-page {
+  flex-grow: 1;
+  padding: 5px 10px;
 }
 
 /* navbar */
@@ -157,6 +163,74 @@ a {
 }
 
 /* navbar */
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+.breadcrumb .page-title {
+  font-size: 2.4rem;
+  text-transform: uppercase;
+}
+
+.table-container {
+  margin-top: 10px;
+  background: #2a2a2a;
+  padding: 10px 20px;
+}
+
+.table-header {
+  padding: 5px 10px;
+}
+
+.table-header .btn-add {
+  padding: 8px 16px;
+  background: #2eb872;
+  color: #fff;
+  font-size: 1.4rem;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.table-header .btn-add:hover {
+  opacity: 1;
+}
+
+.table-header .btn-add i {
+  font-size: 1.8rem;
+  margin-right: 10px;
+}
+
+.table-body {
+  margin-top: 10px;
+}
+
+.table {
+  width: 100%;
+  border: none;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.table thead th {
+  padding: 20px 10px;
+  font-size: 1.6rem;
+  font-weight: 500;
+  text-align: left;
+}
+
+.table tbody td {
+  font-size: 1.4rem;
+  font-weight: 300;
+}
 
 /* responsive */
 @media screen and (max-width: 750px) {

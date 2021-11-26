@@ -2,10 +2,17 @@ require("dotenv").config();
 const path = require("path");
 const createError = require("http-errors");
 const express = require("express");
+const logger = require("morgan");
 const expressLayouts = require("express-ejs-layouts");
+
+const mongoDB = require("./config/mongodb");
+const storeRouter = require("./routes/store");
 
 const app = express();
 const port = process.env.PORT;
+
+// Connect database
+mongoDB.connect();
 
 // Static file
 app.use("/assets", express.static(path.join(__dirname, "public")));
@@ -15,9 +22,11 @@ app.use(expressLayouts);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.get("/", (req, res, next) => {
-  res.render("pages/products");
-});
+// Logger
+app.use(logger("dev"));
+
+// Routing
+app.use("/store", storeRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

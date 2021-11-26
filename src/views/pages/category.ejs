@@ -1,0 +1,97 @@
+<%- contentFor('css_body') %>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
+/>
+
+<style>
+  #add_category {
+    background: #2a2a2a;
+  }
+
+  #add_category form > * {
+    display: block;
+    color: #fff;
+    font-size: 1.6rem;
+    margin: 0 auto;
+    margin-top: 10px;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  #add_category form input {
+    height: 40px;
+    width: 70%;
+    outline: none;
+    border: none;
+    border-radius: 0px;
+    padding: 5px 10px;
+
+    text-align: center;
+  }
+
+  #add_category form input::placeholder {
+    color: #e1e1e1;
+    font-weight: 100;
+  }
+
+  #add_category form button {
+    padding: 8px 20px;
+    background: #2eb872;
+    color: #fff;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+  }
+
+  #add_category form button i {
+    margin-right: 5px;
+    font-size: 2rem;
+  }
+</style>
+
+<%- contentFor('body') %>
+<div class="breadcrumb">
+  <div class="page-title"><%= title %></div>
+</div>
+
+<div class="table-container">
+  <div class="table-header">
+    <a href="#add_category" rel="modal:open" class="btn-add">
+      <i class="bx bx-book-add"></i> Add new
+    </a>
+  </div>
+  <div class="table-body">
+    <table class="table">
+      <thead>
+        <tr class="table-row">
+          <th>Category</th>
+          <th class="table-action">Action</th>
+        </tr>
+      </thead>
+
+      <tr>
+        <td>Genre</td>
+        <td class="table-action">
+          <a href=""><i class="bx bx-pencil"></i></a>
+          <a href=""><i class="bx bx-list-minus"></i></a>
+        </td>
+      </tr>
+    </table>
+    <div class="paging"></div>
+  </div>
+</div>
+
+<!-- Modal add Category -->
+<div id="add_category" class="modal">
+  <form action="/store/add-category" method="post">
+    <input type="text" placeholder="Enter category name" />
+    <button type="submit" rel="modal:close">
+      <i class="bx bx-save"></i>Save
+    </button>
+  </form>
+</div>
+<%- contentFor('js_body') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
