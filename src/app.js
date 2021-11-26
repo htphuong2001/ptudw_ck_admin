@@ -14,6 +14,9 @@ const port = process.env.PORT;
 // Connect database
 mongoDB.connect();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 // Static file
 app.use("/assets", express.static(path.join(__dirname, "public")));
 
