@@ -15,8 +15,8 @@ app.use(expressLayouts);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-app.use("/", (req, res, next) => {
-  res.send("oke");
+app.get("/", (req, res, next) => {
+  res.render("pages/products");
 });
 
 // catch 404 and forward to error handler
@@ -32,7 +32,7 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("pages/error", { title: "Error", layout: "./layouts/error" });
+  res.render("pages/error", { layout: false });
 });
 
 app.listen(port, () => {
