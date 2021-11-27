@@ -11,6 +11,27 @@ const addCategory = async (req, res, next) => {
   }
 };
 
+const takeCategory = async (req, res, next) => {
+  const { draw, columns, order, start, length } = req.query;
+  const nameColSort = columns[order[0].column].data;
+  console.log(nameColSort);
+  try {
+    const recordsTotal = await CategoryModel.find({}).sort({
+      [nameColSort]: order[0].dir,
+    });
+    const data = recordsTotal.slice(start, start + length);
+    res.json({
+      raw: draw + 1,
+      recordsTotal: recordsTotal.length,
+      recordsFiltered: recordsTotal.length,
+      data,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
+  takeCategory,
   addCategory,
 };

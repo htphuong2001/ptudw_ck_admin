@@ -1,0 +1,129 @@
+table.dataTable tbody td {
+  padding-left: 10px;
+}
+
+.dataTables_filter {
+  float: left !important;
+  margin-left: 10px;
+}
+
+.dataTables_filter label {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  font-size: 1.4rem;
+}
+
+.dataTables_filter input[type="search"] {
+  height: 100%;
+  outline: none;
+  font-size: 1.4rem;
+  padding: 4px 8px;
+  margin-left: 10px;
+}
+
+table.dataTable {
+  padding-top: 20px !important;
+}
+
+table.dataTable thead {
+  background: #eee;
+}
+
+table.dataTable thead th {
+  font-size: 1.5rem;
+  font-weight: 500;
+  border: none !important;
+  padding: 5px 10px;
+}
+
+table.dataTable thead th.btn {
+  width: 20px;
+}
+
+table.dataTable thead th + th {
+  border-left: 1px solid #fff !important;
+}
+
+table.dataTable thead th.btn + th.btn {
+  border-left: none !important;
+}
+
+table.dataTable tbody td {
+  border: none !important;
+  padding: 5px;
+  text-align: left;
+  padding-left: 10px;
+  font-size: 1.3rem;
+  font-weight: 300;
+}
+
+table.dataTable tbody td {
+  background: #fff !important;
+}
+
+table.dataTable tbody .dataTables_empty {
+  margin: 5px;
+  padding: 10px !important;
+  font-size: 1.4rem;
+}
+
+table.dataTable tbody .fix {
+  color: #f3950d;
+  font-size: 1.6rem;
+}
+
+table.dataTable tbody .delete {
+  font-size: 1.6rem;
+  color: #cd1818;
+}
+
+.dataTables_paginate {
+  padding: 10px !important;
+  display: flex;
+  align-items: center;
+}
+
+.dataTables_paginate .paginate_button {
+  background: #94b3fd;
+  border: none !important;
+  margin: 1px;
+  color: #fff !important;
+}
+
+.dataTables_paginate .paginate_button.current {
+  background: #598bff !important;
+  color: #fff !important;
+}
+
+#table_info {
+  font-size: 1.3rem !important;
+  padding-left: 10px;
+}
+
+#table_previous,
+#table_next {
+  padding: 4px 8px;
+  background: #94b3fd;
+  color: #fff !important;
+  font-size: 1.2rem !important;
+}
+
+#table_previous.disabled,
+#table_next.disabled {
+  background: #eee !important;
+  color: #000 !important;
+}
+/*
+
+@media screen and (max-width: 640px) {
+  .dt-buttons {
+    text-align: left !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .dataTables_filter {
+    text-align: right !important;
+  }
+} */

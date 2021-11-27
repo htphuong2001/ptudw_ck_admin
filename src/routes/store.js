@@ -1,5 +1,5 @@
 const express = require("express");
-const { addCategory } = require("../controllers/store");
+const { takeCategory, addCategory } = require("../controllers/store");
 
 const router = express.Router();
 
@@ -10,6 +10,8 @@ router.get("/", (req, res, next) => {
 router.get("/category", (req, res, next) => {
   res.render("pages/category", { title: "category" });
 });
+
+router.get("/take-category", takeCategory);
 
 router.post("/add-category", addCategory);
 
