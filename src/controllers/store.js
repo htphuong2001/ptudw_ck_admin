@@ -27,8 +27,17 @@ const addCategoryPage = (req, res, next) => {
 const addCategory = async (req, res, next) => {
   const category = req.body;
   try {
-    console.log(category);
     await CategoryModel.create(category);
+    res.redirect("/store/category");
+  } catch (err) {
+    next(err);
+  }
+};
+
+const deleteCategory = async (req, res, next) => {
+  const { _id } = req.query;
+  try {
+    await CategoryModel.findByIdAndDelete({ _id });
     res.redirect("/store/category");
   } catch (err) {
     next(err);
@@ -39,4 +48,5 @@ module.exports = {
   takeCategory,
   addCategoryPage,
   addCategory,
+  deleteCategory,
 };

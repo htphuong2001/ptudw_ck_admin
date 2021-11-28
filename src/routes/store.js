@@ -3,6 +3,7 @@ const {
   takeCategory,
   addCategoryPage,
   addCategory,
+  deleteCategory,
 } = require("../controllers/store");
 
 const router = express.Router();
@@ -20,5 +21,7 @@ router.get("/take-category", takeCategory);
 router.get("/add-category", addCategoryPage);
 
 router.post("/add-category", addCategory);
+
+router.get("/delete-category", deleteCategory);
 
 module.exports = router;
