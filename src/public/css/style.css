@@ -179,7 +179,6 @@ a {
 }
 
 .btn-full {
-  background: #4bb543;
   padding: 8px 20px;
   font-size: 1.5rem;
   font-weight: 500;
@@ -187,15 +186,69 @@ a {
   align-items: center;
   color: #fff;
   border-radius: 2px;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-full i {
   margin-right: 5px;
+  font-size: 2rem;
 }
 
-.data {
+.page-body {
   width: 100%;
   margin-top: 20px;
+}
+
+.bg-success {
+  background: #4bb543;
+}
+
+.bg-primary {
+  background: #113cfc;
+}
+
+.form-main {
+  display: flex;
+  font-size: 1.4rem;
+  padding: 0 10px;
+}
+
+.form-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 30px;
+}
+
+.form-control input {
+  flex-grow: 1;
+  height: 100%;
+  padding: 5px 10px;
+  outline: none;
+  font-size: 1.4rem;
+}
+
+.form-control label {
+  margin-right: 10px;
+}
+
+.form-main > * {
+  margin-bottom: 20px;
+}
+
+.form-control label.error {
+  display: block;
+  width: 100%;
+  text-align: right;
+  color: #f90716;
+  padding: 5px;
+}
+
+.form-btn {
+  margin-top: 10px;
+  display: flex;
+  justify-content: end;
 }
 
 /* responsive */

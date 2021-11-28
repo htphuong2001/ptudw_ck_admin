@@ -1,16 +1,5 @@
 const CategoryModel = require("../models/Category");
 
-const addCategory = async (req, res, next) => {
-  const category = req.body;
-  try {
-    console.log(category);
-    await CategoryModel.create(category);
-    res.redirect("/store/category");
-  } catch (err) {
-    next(err);
-  }
-};
-
 const takeCategory = async (req, res, next) => {
   const { draw, columns, order, start, length } = req.query;
   const nameColSort = columns[order[0].column].data;
@@ -31,7 +20,23 @@ const takeCategory = async (req, res, next) => {
   }
 };
 
+const addCategoryPage = (req, res, next) => {
+  res.render("pages/add-category", { title: "Add Category" });
+};
+
+const addCategory = async (req, res, next) => {
+  const category = req.body;
+  try {
+    console.log(category);
+    await CategoryModel.create(category);
+    res.redirect("/store/category");
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   takeCategory,
+  addCategoryPage,
   addCategory,
 };

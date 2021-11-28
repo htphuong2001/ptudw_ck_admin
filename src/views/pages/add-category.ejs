@@ -1,7 +1,42 @@
 <%- contentFor('css_body') %> <%- contentFor('body') %>
 <div class="breadcrumb">
   <div class="page-title"><%= title %></div>
-  <a href="/store/add-category" class="btn-full"
-    ><i class="bx bx-book-add"></i> New</a
+  <a href="/store/category" class="btn-full bg-primary"
+    ><i class="bx bx-exit bx-rotate-180"></i>Exit</a
   >
 </div>
+
+<div class="page-body">
+  <form
+    id="category-form"
+    class="row form-main"
+    action="/store/add-category"
+    method="post"
+  >
+    <div class="form-control col-12 col-sm-9 col-md-6 row">
+      <label for="name">Category:</label>
+      <input type="text" placeholder="Enter category name" name="name" />
+    </div>
+    <div class="form-btn col-12">
+      <button type="submit" class="btn-full bg-success">
+        <i class="bx bx-save"></i> Save
+      </button>
+    </div>
+  </form>
+</div>
+
+<%- contentFor('js_body') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#category-form").validate({
+      rules: {
+        name: "required",
+      },
+      messages: {
+        name: "You need to enter category name",
+      },
+    });
+  });
+</script>
