@@ -34,10 +34,35 @@ const addCategory = async (req, res, next) => {
   }
 };
 
-const deleteCategory = async (req, res, next) => {
-  const { _id } = req.query;
+const updateCategoryPage = async (req, res, next) => {
+  const { categoryId } = req.params;
   try {
-    await CategoryModel.findByIdAndDelete({ _id });
+    const category = await CategoryModel.findById(categoryId);
+    res.render("pages/update-category", {
+      title: "Update category",
+      category,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const updateCategory = async (req, res, next) => {
+  const { categoryId } = req.params;
+  const categoryUpdate = req.body;
+  console.log(categoryUpdate);
+  try {
+    await CategoryModel.findByIdAndUpdate(categoryId, categoryUpdate);
+    res.redirect("/store/category");
+  } catch (err) {
+    next(err);
+  }
+};
+
+const deleteCategory = async (req, res, next) => {
+  const { categoryId } = req.params;
+  try {
+    await CategoryModel.findByIdAndDelete({ _id: categoryId });
     res.redirect("/store/category");
   } catch (err) {
     next(err);
@@ -48,5 +73,7 @@ module.exports = {
   takeCategory,
   addCategoryPage,
   addCategory,
+  updateCategoryPage,
+  updateCategory,
   deleteCategory,
 };
