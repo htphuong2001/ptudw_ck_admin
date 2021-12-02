@@ -1,0 +1,100 @@
+<%- contentFor('css_body') %>
+<!-- Datatable  -->
+<link
+  rel="stylesheet"
+  href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"
+/>
+
+<link rel="stylesheet" href="/assets/css/custom-datatable.css" />
+<%- contentFor('body') %>
+<div class="breadcrumb">
+  <div class="page-title"><%= title %></div>
+  <a href="/store/add-tag" class="btn-full bg-success"
+    ><i class="bx bx-book-add"></i> New</a
+  >
+</div>
+
+<div class="page-body">
+  <table id="table" class="display nowrap" style="width: 100%">
+    <thead>
+      <tr>
+        <th style="min-width: 20px"></th>
+        <th class="all">Tag</th>
+        <th class="no-sort all" style="max-width: 150px">Category</th>
+        <th class="no-sort btn all"></th>
+        <th class="no-sort btn all"></th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<%- contentFor('js_body') %>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#table").DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: "/store/take-tag",
+        type: "POST",
+      },
+      searching: false,
+      lengthChange: false,
+      pageLength: 5,
+      responsive: {
+        details: {
+          type: "column",
+        },
+      },
+      columnDefs: [
+        {
+          className: "dtr-control",
+          orderable: false,
+          targets: 0,
+        },
+        {
+          orderable: false,
+          targets: "no-sort",
+        },
+        {
+          defaultContent: "-",
+          targets: "_all",
+        },
+      ],
+      order: [1, "asc"],
+      columns: [
+        { data: "" },
+        { data: "name" },
+        { data: "category.name" },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return (
+              "<a class='fix' href='/store/update-tag/" +
+              data._id +
+              "'><i class='bx bx-pen'></i></a>"
+            );
+          },
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return (
+              "<a class='delete' href='/store/delete-tag/" +
+              data._id +
+              "'><i class='bx bx-eraser'></i></a>"
+            );
+          },
+        },
+      ],
+    });
+  });
+</script>

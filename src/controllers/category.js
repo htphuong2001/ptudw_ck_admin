@@ -1,10 +1,13 @@
 const CategoryModel = require("../models/Category");
 
-const takeCategory = async (req, res, next) => {
-  const { draw, columns, order, start, length } = req.query;
-  const nameColSort = columns[order[0].column].data;
-  console.log(nameColSort);
+const getCategoryPage = (req, res, next) => {
+  res.render("pages/category/category", { title: "category" });
+};
+
+const getCategory = async (req, res, next) => {
   try {
+    const { draw, columns, order, start, length } = req.body;
+    const nameColSort = columns[order[0].column].data;
     const recordsTotal = await CategoryModel.find({}).sort({
       [nameColSort]: order[0].dir,
     });
@@ -21,7 +24,7 @@ const takeCategory = async (req, res, next) => {
 };
 
 const addCategoryPage = (req, res, next) => {
-  res.render("pages/add-category", { title: "Add Category" });
+  res.render("pages/category/add-category", { title: "Add Category" });
 };
 
 const addCategory = async (req, res, next) => {
@@ -35,10 +38,10 @@ const addCategory = async (req, res, next) => {
 };
 
 const updateCategoryPage = async (req, res, next) => {
-  const { categoryId } = req.params;
   try {
+    const { categoryId } = req.params;
     const category = await CategoryModel.findById(categoryId);
-    res.render("pages/update-category", {
+    res.render("pages/category/update-category", {
       title: "Update category",
       category,
     });
@@ -48,10 +51,9 @@ const updateCategoryPage = async (req, res, next) => {
 };
 
 const updateCategory = async (req, res, next) => {
-  const { categoryId } = req.params;
-  const categoryUpdate = req.body;
-  console.log(categoryUpdate);
   try {
+    const { categoryId } = req.params;
+    const categoryUpdate = req.body;
     await CategoryModel.findByIdAndUpdate(categoryId, categoryUpdate);
     res.redirect("/store/category");
   } catch (err) {
@@ -70,7 +72,8 @@ const deleteCategory = async (req, res, next) => {
 };
 
 module.exports = {
-  takeCategory,
+  getCategoryPage,
+  getCategory,
   addCategoryPage,
   addCategory,
   updateCategoryPage,

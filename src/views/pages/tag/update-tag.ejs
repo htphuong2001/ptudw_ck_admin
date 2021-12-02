@@ -1,0 +1,58 @@
+<%- contentFor('css_body') %> <%- contentFor('body') %>
+<div class="breadcrumb">
+  <div class="page-title"><%= title %></div>
+  <a href="/store/tag" class="btn-full bg-primary"
+    ><i class="bx bx-exit bx-rotate-180"></i>Exit</a
+  >
+</div>
+
+<div class="page-body">
+  <form
+    id="tag-form"
+    class="row form-main"
+    action="/store/update-tag/<%= tag._id%>"
+    method="post"
+  >
+    <div class="form-control col-12 col-sm-6 col-xl-4 row">
+      <label for="name">Tag:</label>
+      <input
+        type="text"
+        placeholder="Enter tag name"
+        name="name"
+        id="name"
+        value="<%= tag.name %>"
+      />
+    </div>
+    <div class="form-control col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 row">
+      <label for="category">Category:</label>
+      <select name="category" id="category">
+        <% categories.forEach(function(category){ %>
+        <option <% if (tag.category._id.equals(category._id)) { %>
+          selected <% } %> value="<%= category._id %>"><%= category.name %>
+        </option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="form-btn col-12">
+      <button type="submit" class="btn-full bg-success">
+        <i class="bx bx-save"></i> Save
+      </button>
+    </div>
+  </form>
+</div>
+
+<%- contentFor('js_body') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#tag-form").validate({
+      rules: {
+        name: "required",
+      },
+      messages: {
+        name: "You need to enter tag name",
+      },
+    });
+  });
+</script>

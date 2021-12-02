@@ -209,9 +209,10 @@ a {
 }
 
 .form-main {
+  width: 100%;
   display: flex;
   font-size: 1.4rem;
-  padding: 0 10px;
+  margin: 0 10px;
 }
 
 .form-control {
@@ -219,6 +220,7 @@ a {
   align-items: center;
   justify-content: space-between;
   height: 30px;
+  margin: 0;
 }
 
 .form-control input {
@@ -229,8 +231,16 @@ a {
   font-size: 1.4rem;
 }
 
+.form-control select {
+  height: 100%;
+  padding: 5px 10px;
+  outline: none;
+  font-size: 1.4rem;
+}
+
 .form-control label {
   margin-right: 10px;
+  font-size: 1.5rem;
 }
 
 .form-main > * {
