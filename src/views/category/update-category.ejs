@@ -1,7 +1,7 @@
 <%- contentFor('css_body') %> <%- contentFor('body') %>
 <div class="breadcrumb">
-  <div class="page-title"><%= title %></div>
-  <a href="/store/category" class="btn-full bg-primary"
+  <div class="page-title">Edit Category</div>
+  <a href="/category" class="btn-full bg-primary"
     ><i class="bx bx-exit bx-rotate-180"></i>Exit</a
   >
 </div>
@@ -10,12 +10,17 @@
   <form
     id="category-form"
     class="row form-main"
-    action="/store/add-category"
+    action="/category/update/<%= category._id%> "
     method="post"
   >
-    <div class="col-12 col-sm-9 col-md-6 row form-control">
+    <div class="form-control col-12 col-sm-9 col-md-6 row">
       <label for="name">Category:</label>
-      <input type="text" placeholder="Enter category name" name="name" />
+      <input
+        type="text"
+        placeholder="Enter category name"
+        name="name"
+        value="<%= category.name %>"
+      />
     </div>
     <div class="form-btn col-12">
       <button type="submit" class="btn-full bg-success">

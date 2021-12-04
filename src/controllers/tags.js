@@ -1,41 +1,39 @@
 const mongoose = require("mongoose");
+const TagModel = require("../models/Tag");
+const CategoryModel = require("../models/Category");
 
-const Category = require("../models/Category");
-const Tag = require("../models/Tag");
-
-const indexPage = (req, res, next) => {
-  res.render("tag/index", { title: "Tag" });
+const getTagPage = (req, res, next) => {
+  res.render("pages/tag/tag", { title: "Tag" });
 };
 
-const getTags = async (req, res, next) => {
+const getTag = async (req, res, next) => {
   try {
     const { draw, columns, order, start, length } = req.body;
     const nameColSort = columns[order[0].column].data;
 
-    const recordsTotal = await Tag.find({})
+    const recordsTotal = await TagModel.find({})
       .populate("category", "name")
       .sort({
         [nameColSort]: order[0].dir,
       });
     const data = recordsTotal.slice(start, start + length);
-
     res.json({
       raw: draw + 1,
       recordsTotal: recordsTotal.length,
       recordsFiltered: recordsTotal.length,
       data,
     });
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 };
 
 const addTagPage = async (req, res, next) => {
   try {
-    const categories = await Category.find({});
-    res.render("tag/add-tag", { title: "Tag", categories });
-  } catch (error) {
-    next(error);
+    const categories = await CategoryModel.find({});
+    res.render("pages/tag/add-tag", { title: "Add Tag", categories });
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -43,13 +41,11 @@ const addTag = async (req, res, next) => {
   try {
     const tag = req.body;
     tag.category = mongoose.Types.ObjectId(tag.category);
-
-    const newTag = new Tag(tag);
+    const newTag = new TagModel(tag);
     await newTag.save();
-
-    res.redirect("/tag");
-  } catch (error) {
-    next(error);
+    res.redirect("/store/tag");
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -57,17 +53,16 @@ const updateTagPage = async (req, res, next) => {
   try {
     const { tagId } = req.params;
     const [categories, tag] = await Promise.all([
-      Category.find({}),
-      Tag.findById(tagId).populate("category", "_id"),
+      CategoryModel.find({}),
+      TagModel.findById(tagId).populate("category", "_id"),
     ]);
-
-    res.render("tag/update-tag", {
+    res.render("pages/tag/update-tag", {
       title: "Update Tag",
       categories,
       tag,
     });
-  } catch (error) {
-    next(error);
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -75,26 +70,26 @@ const updateTag = async (req, res, next) => {
   try {
     const { tagId } = req.params;
     const tagUpdate = req.body;
-    await Tag.findByIdAndUpdate(tagId, tagUpdate);
-    res.redirect("/tag");
-  } catch (error) {
-    next(error);
+    await TagModel.findByIdAndUpdate(tagId, tagUpdate);
+    res.redirect("/store/tag");
+  } catch (err) {
+    next(err);
   }
 };
 
 const deleteTag = async (req, res, next) => {
+  const { tagId } = req.params;
   try {
-    const { tagId } = req.params;
-    await Tag.findByIdAndDelete({ _id: tagId });
-    res.redirect("/tag");
-  } catch (error) {
-    next(error);
+    await TagModel.findByIdAndDelete({ _id: tagId });
+    res.redirect("/store/tag");
+  } catch (err) {
+    next(err);
   }
 };
 
 module.exports = {
-  indexPage,
-  getTags,
+  getTagPage,
+  getTag,
   addTagPage,
   addTag,
   updateTagPage,

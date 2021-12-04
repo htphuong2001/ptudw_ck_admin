@@ -6,7 +6,8 @@ const logger = require("morgan");
 const expressLayouts = require("express-ejs-layouts");
 
 const mongoDB = require("./config/mongodb");
-const storeRouter = require("./routes/store");
+const categoryRouter = require("./routes/category");
+const tagRouter = require("./routes/tag");
 
 const app = express();
 const port = process.env.PORT;
@@ -29,7 +30,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(logger("dev"));
 
 // Routing
-app.use("/store", storeRouter);
+app.use("/category", categoryRouter);
+app.use("/tag", tagRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

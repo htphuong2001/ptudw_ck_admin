@@ -82,6 +82,7 @@ table.dataTable tbody .delete {
   padding: 10px !important;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .dataTables_paginate .paginate_button {
@@ -114,16 +115,3 @@ table.dataTable tbody .delete {
   background: #eee !important;
   color: #000 !important;
 }
-/*
-
-@media screen and (max-width: 640px) {
-  .dt-buttons {
-    text-align: left !important;
-  }
-}
-
-@media screen and (max-width: 767px) {
-  .dataTables_filter {
-    text-align: right !important;
-  }
-} */

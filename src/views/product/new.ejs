@@ -1,20 +1,15 @@
 <%- contentFor('css_body') %> <%- contentFor('body') %>
 <div class="breadcrumb">
-  <div class="page-title"><%= title %></div>
-  <a href="/store/tag" class="btn-full bg-primary"
+  <div class="page-title">New Product</div>
+  <a href="/product" class="btn-full bg-primary"
     ><i class="bx bx-exit bx-rotate-180"></i>Exit</a
   >
 </div>
 
 <div class="page-body">
-  <form
-    id="tag-form"
-    class="row form-main"
-    action="/store/add-tag"
-    method="post"
-  >
+  <form id="tag-form" class="row form-main" action="/tag/add" method="post">
     <div class="form-control col-12 col-sm-6 col-xl-4 row">
-      <label for="name">Tag:</label>
+      <label for="name">Name:</label>
       <input type="text" placeholder="Enter tag name" name="name" id="name" />
     </div>
     <div class="form-control col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 row">

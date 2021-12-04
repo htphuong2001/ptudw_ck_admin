@@ -1,52 +1,56 @@
-const CategoryModel = require("../models/Category");
+const Category = require("../models//Category");
 
-const getCategoryPage = (req, res, next) => {
-  res.render("pages/category/category", { title: "category" });
+const indexPage = (req, res, next) => {
+  res.render("category/index", { title: "Category" });
 };
 
-const getCategory = async (req, res, next) => {
+const getCategories = async (req, res, next) => {
   try {
     const { draw, columns, order, start, length } = req.body;
     const nameColSort = columns[order[0].column].data;
-    const recordsTotal = await CategoryModel.find({}).sort({
+
+    const recordsTotal = await Category.find({}).sort({
       [nameColSort]: order[0].dir,
     });
     const data = recordsTotal.slice(start, start + length);
+
     res.json({
       raw: draw + 1,
       recordsTotal: recordsTotal.length,
       recordsFiltered: recordsTotal.length,
       data,
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 };
 
 const addCategoryPage = (req, res, next) => {
-  res.render("pages/category/add-category", { title: "Add Category" });
+  res.render("category/add-category", { title: "Category" });
 };
 
 const addCategory = async (req, res, next) => {
-  const category = req.body;
   try {
-    await CategoryModel.create(category);
-    res.redirect("/store/category");
-  } catch (err) {
-    next(err);
+    const category = req.body;
+    await Category.create(category);
+    res.redirect("/category");
+  } catch (error) {
+    next(error);
   }
 };
 
 const updateCategoryPage = async (req, res, next) => {
   try {
     const { categoryId } = req.params;
-    const category = await CategoryModel.findById(categoryId);
-    res.render("pages/category/update-category", {
-      title: "Update category",
+    console.log(categoryId);
+    const category = await Category.findById(categoryId);
+    console.log(category);
+    res.render("category/update-category", {
+      title: "Category",
       category,
     });
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -54,26 +58,26 @@ const updateCategory = async (req, res, next) => {
   try {
     const { categoryId } = req.params;
     const categoryUpdate = req.body;
-    await CategoryModel.findByIdAndUpdate(categoryId, categoryUpdate);
-    res.redirect("/store/category");
-  } catch (err) {
-    next(err);
+    await Category.findByIdAndUpdate(categoryId, categoryUpdate);
+    res.redirect("/category");
+  } catch (error) {
+    next(error);
   }
 };
 
 const deleteCategory = async (req, res, next) => {
-  const { categoryId } = req.params;
   try {
-    await CategoryModel.findByIdAndDelete({ _id: categoryId });
-    res.redirect("/store/category");
-  } catch (err) {
-    next(err);
+    const { categoryId } = req.params;
+    await Category.findByIdAndDelete({ _id: categoryId });
+    res.redirect("/category");
+  } catch (error) {
+    next(error);
   }
 };
 
 module.exports = {
-  getCategoryPage,
-  getCategory,
+  indexPage,
+  getCategories,
   addCategoryPage,
   addCategory,
   updateCategoryPage,
