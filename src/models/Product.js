@@ -10,7 +10,6 @@ const ProductSchema = new Schema({
   },
   release: {
     type: Date,
-    default: Date.now(),
   },
   price: {
     type: Number,
@@ -18,24 +17,29 @@ const ProductSchema = new Schema({
   discount: {
     type: Number,
   },
-  thumbnail: {
+  tags: [
+    {
+      type: String,
+      ref: "Tag",
+    },
+  ],
+  img: {
     type: String,
+    default: null,
+  },
+  img_id: {
+    type: String,
+    default: null,
   },
   des: {
     type: String,
   },
-  tag: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Tag",
-    },
-  ],
   createAt: {
     type: Date,
     default: Date.now(),
   },
 });
 
-const Product = mongoose.model("Product", CategorySchema);
+const Product = mongoose.model("Product", ProductSchema);
 
 module.exports = Product;

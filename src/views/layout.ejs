@@ -29,13 +29,9 @@
   </head>
   <body>
     <!-- sidebar -->
-    <%- include('./partials/sidebar') %>
-
-    <div class="main">
-      <%- include('./partials/navbar') %>
-      <!-- page -->
-      <div class="main-page"><%- body %></div>
-    </div>
+    <%- include('./partials/sidebar') %> <%- include('./partials/navbar') %>
+    <!-- page -->
+    <div class="main-page active"><%- body %></div>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <%- js_body %>

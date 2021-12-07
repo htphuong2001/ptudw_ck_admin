@@ -1,0 +1,136 @@
+<%- contentFor('css_body') %> <%- contentFor('body') %>
+<div class="breadcrumb">
+  <div class="page-title">Edit Product</div>
+  <a href="/product" class="btn-full bg-primary"
+    ><i class="bx bx-exit bx-rotate-180"></i>Exit</a
+  >
+</div>
+
+<div class="page-body">
+  <form
+    id="tag-form"
+    class="form-main row"
+    action="/product/update/<%= product._id%>"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <div class="form-control col-12 col-sm-8 col-md-6">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        placeholder="Enter product name"
+        name="name"
+        id="name"
+        value="<%= product.name %>"
+      />
+    </div>
+    <div class="form-control col-12 col-sm-4 col-md-3">
+      <label for="price">Price:</label>
+      <input type="text" name="price" id="price" value="<%= product.price %>" />
+    </div>
+    <div class="form-control col-12 col-sm-4 col-md-3">
+      <label for="discount">Discount:</label>
+      <input
+        type="text"
+        name="discount"
+        id="discount"
+        value="<%=product.discount%>"
+      />
+    </div>
+    <div class="form-control col-12 col-sm-4 col-md-4">
+      <label for="dev">Dev:</label>
+      <input type="text" name="dev" id="dev" value="<%= product.dev %>" />
+    </div>
+    <div class="form-control col-12 col-sm-4 col-md-4">
+      <label for="release">Date release:</label>
+      <input
+        type="date"
+        name="release"
+        id="release"
+        value="<%= product.release.toISOString().split('T')[0] %>"
+      />
+    </div>
+    <div class="form-control col-12">
+      <label for="tag">Tags:</label>
+      <div class="check-box-container">
+        <% tags.forEach(function(tag) { %>
+        <div class="form-control-s">
+          <input type="checkbox" id="<%= tag._id %>" name="tags" value="<%=
+          tag._id %>" <%= product.tags.includes(tag._id.toString()) ? "checked"
+          : "" %> />
+          <label for="<%= tag._id %>">
+            <%= tag.name%> (<%= tag.category.name %>)
+          </label>
+        </div>
+        <% }); %>
+      </div>
+    </div>
+    <div class="form-control col-12">
+      <label for="des">Description:</label>
+      <textarea name="des" id="des" rows="5"><%= product.des %></textarea>
+    </div>
+    <div class="form-control col-12">
+      <label for="img">Image:</label>
+      <div class="avatar-upload">
+        <div class="avatar-preview">
+          <img
+            id="imagePreview"
+            src="<%= product.img ? product.img : '/assets/img/default-img.jpg'%>"
+            alt=""
+          />
+        </div>
+        <div class="avatar-edit">
+          <input type="file" name="img" id="imageUpload" accept="image/*" />
+          <label for="imageUpload" class="btn-full">
+            <i class="bx bx-image-add"></i> Choose a photo
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-btn col-12">
+      <button type="submit" class="btn-full bg-success">
+        <i class="bx bx-save"></i> Save
+      </button>
+    </div>
+  </form>
+</div>
+
+<%- contentFor('js_body') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+<script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $("#imagePreview").attr("src", e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  $(document).ready(function () {
+    $("#imageUpload").change(function () {
+      readURL(this);
+    });
+
+    $("#product-form").validate({
+      rules: {
+        name: "required",
+        price: {
+          required: "true",
+          number: true,
+          min: 0,
+        },
+        discount: {
+          required: "true",
+          number: true,
+          min: 0,
+        },
+      },
+      messages: {
+        name: "You need to enter tag name",
+      },
+    });
+  });
+</script>

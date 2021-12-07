@@ -13,7 +13,7 @@
     action="/tag/update/<%= tag._id%>"
     method="post"
   >
-    <div class="form-control col-12 col-sm-6 col-xl-4 row">
+    <div class="form-control col-12 col-sm-6 col-xl-4">
       <label for="name">Tag:</label>
       <input
         type="text"
@@ -23,11 +23,11 @@
         value="<%= tag.name %>"
       />
     </div>
-    <div class="form-control col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 row">
+    <div class="form-control col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3">
       <label for="category">Category:</label>
       <select name="category" id="category">
         <% categories.forEach(function(category){ %>
-        <option <% if (tag.category._id.equals(category._id)) { %>
+        <option <% if (tag.category == category._id.toString()) { %>
           selected <% } %> value="<%= category._id %>"><%= category.name %>
         </option>
         <% }); %>

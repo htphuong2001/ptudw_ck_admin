@@ -7,12 +7,12 @@
 </div>
 
 <div class="page-body">
-  <form id="tag-form" class="row form-main" action="/tag/add" method="post">
-    <div class="form-control col-12 col-sm-6 col-xl-4 row">
-      <label for="name">Tag:</label>
+  <form id="tag-form" class="form-main row" action="/tag/new" method="post">
+    <div class="form-control col-12 col-sm-8 col-md-6">
+      <label for="name">Name:</label>
       <input type="text" placeholder="Enter tag name" name="name" id="name" />
     </div>
-    <div class="form-control col-12 col-sm-6 col-md-5 col-lg-4 col-xl-3 row">
+    <div class="form-control col-12 col-sm-4 col-md-3">
       <label for="category">Category:</label>
       <select name="category" id="category">
         <% categories.forEach(function(category){ %>

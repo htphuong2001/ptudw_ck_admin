@@ -25,11 +25,11 @@ const getCategories = async (req, res, next) => {
   }
 };
 
-const addCategoryPage = (req, res, next) => {
-  res.render("category/add-category", { title: "Category" });
+const newCategoryPage = (req, res, next) => {
+  res.render("category/new", { title: "Category" });
 };
 
-const addCategory = async (req, res, next) => {
+const newCategory = async (req, res, next) => {
   try {
     const category = req.body;
     await Category.create(category);
@@ -45,7 +45,7 @@ const updateCategoryPage = async (req, res, next) => {
     console.log(categoryId);
     const category = await Category.findById(categoryId);
     console.log(category);
-    res.render("category/update-category", {
+    res.render("category/edit", {
       title: "Category",
       category,
     });
@@ -78,8 +78,8 @@ const deleteCategory = async (req, res, next) => {
 module.exports = {
   indexPage,
   getCategories,
-  addCategoryPage,
-  addCategory,
+  newCategoryPage,
+  newCategory,
   updateCategoryPage,
   updateCategory,
   deleteCategory,

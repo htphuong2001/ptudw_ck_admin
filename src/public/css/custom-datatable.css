@@ -1,3 +1,15 @@
+#table_wrapper {
+  width: 100%;
+}
+
+#table {
+  width: 100% !important;
+}
+
+table.dataTable {
+  width: 100% !important;
+}
+
 table.dataTable tbody td {
   padding-left: 10px;
 }
@@ -28,6 +40,7 @@ table.dataTable {
 
 table.dataTable thead {
   background: #eee;
+  width: 100% !important;
 }
 
 table.dataTable thead th {
@@ -52,7 +65,7 @@ table.dataTable thead th.btn + th.btn {
 table.dataTable tbody td {
   border: none !important;
   padding: 5px;
-  text-align: left;
+  text-align: center;
   padding-left: 10px;
   font-size: 1.3rem;
   font-weight: 300;
@@ -76,6 +89,10 @@ table.dataTable tbody .fix {
 table.dataTable tbody .delete {
   font-size: 1.6rem;
   color: #cd1818;
+}
+
+.dtr-details li {
+  text-align: left !important;
 }
 
 .dataTables_paginate {

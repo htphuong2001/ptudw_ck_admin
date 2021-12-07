@@ -6,7 +6,8 @@ const TagSchema = new Schema({
     type: String,
   },
   category: {
-    type: Schema.Types.ObjectId,
+    default: null,
+    type: String,
     ref: "Category",
   },
 });

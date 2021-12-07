@@ -30,20 +30,19 @@ const getTags = async (req, res, next) => {
   }
 };
 
-const addTagPage = async (req, res, next) => {
+const newTagPage = async (req, res, next) => {
   try {
     const categories = await Category.find({});
-    res.render("tag/add-tag", { title: "Tag", categories });
+    res.render("tag/new", { title: "Tag", categories });
   } catch (error) {
     next(error);
   }
 };
 
-const addTag = async (req, res, next) => {
+const newTag = async (req, res, next) => {
   try {
     const tag = req.body;
-    tag.category = mongoose.Types.ObjectId(tag.category);
-
+    console.log(tag);
     const newTag = new Tag(tag);
     await newTag.save();
 
@@ -58,11 +57,11 @@ const updateTagPage = async (req, res, next) => {
     const { tagId } = req.params;
     const [categories, tag] = await Promise.all([
       Category.find({}),
-      Tag.findById(tagId).populate("category", "_id"),
+      Tag.findById(tagId),
     ]);
 
-    res.render("tag/update-tag", {
-      title: "Update Tag",
+    res.render("tag/edit", {
+      title: "Tag",
       categories,
       tag,
     });
@@ -95,8 +94,8 @@ const deleteTag = async (req, res, next) => {
 module.exports = {
   indexPage,
   getTags,
-  addTagPage,
-  addTag,
+  newTagPage,
+  newTag,
   updateTagPage,
   updateTag,
   deleteTag,

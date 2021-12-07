@@ -13,37 +13,42 @@
 <%- contentFor('body') %>
 <div class="breadcrumb">
   <div class="page-title">Product</div>
-  <a href="/product/add" class="btn-full bg-success"
+  <a href="/product/new" class="btn-full bg-success"
     ><i class="bx bx-book-add"></i> New</a
   >
 </div>
 
-<!-- <div class="page-body">
-  <table id="table" class="display nowrap" style="width: 100%">
+<div class="page-body">
+  <table id="table" class="display responsive" style="width: 100%">
     <thead>
       <tr>
         <th style="min-width: 20px"></th>
-        <th class="all">Tag</th>
-        <th class="no-sort all" style="max-width: 150px">Category</th>
-        <th class="no-sort btn all"></th>
-        <th class="no-sort btn all"></th>
+        <th class="no-sort min-tablet-l" style="min-width: 40px">Image</th>
+        <th class="all" style="min-width: 100px">Name</th>
+        <th class="min-tablet-p" style="min-width: 110px">New release</th>
+        <th class="all" style="min-width: 90px">Price</th>
+        <th class="no-sort min-desktop" style="min-width: 100px">Discount</th>
+        <th class="no-sort none">Development</th>
+        <th class="no-sort none">Tags</th>
+        <th class="no-sort btn all" style="min-width: 15px"></th>
+        <th class="no-sort btn all" style="min-width: 15px"></th>
       </tr>
     </thead>
     <tbody></tbody>
   </table>
-</div> -->
+</div>
 
 <%- contentFor('js_body') %>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 
-<!-- <script>
+<script>
   $(document).ready(function () {
     $("#table").DataTable({
       processing: true,
       serverSide: true,
       ajax: {
-        url: "/tag",
+        url: "/product",
         type: "POST",
       },
       searching: false,
@@ -64,21 +69,58 @@
           orderable: false,
           targets: "no-sort",
         },
-        {
-          defaultContent: "-",
-          targets: "_all",
-        },
       ],
-      order: [1, "asc"],
+      order: [2, "asc"],
       columns: [
-        { data: "" },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return "";
+          },
+        },
+        {
+          data: "img",
+          render: function (data, type, row) {
+            return "<img src='" + data + "' height='48' width='36'/>";
+          },
+        },
         { data: "name" },
-        { data: "category.name" },
+        {
+          data: "release",
+          render: function (data, type, row) {
+            var date = new Date(data);
+            var month = date.getMonth() + 1;
+            return date.getDate() + " - " + month + " - " + date.getFullYear();
+          },
+        },
+        {
+          data: "price",
+          render: function (data, type, row) {
+            return data + "&#8363";
+          },
+        },
+        {
+          data: "discount",
+          render: function (data, type, row) {
+            return data * 100 + "%";
+          },
+        },
+        { data: "dev" },
+        {
+          data: "tags",
+          render: function (data, type, row) {
+            var result = "";
+            data.forEach(function (element) {
+              result += element.name + ", ";
+            });
+            return result;
+          },
+        },
         {
           data: null,
           render: function (data, type, row) {
             return (
-              "<a class='fix' href='/tag/update/" +
+              "<a class='fix' href='/product/update/" +
               data._id +
               "'><i class='bx bx-pen'></i></a>"
             );
@@ -88,7 +130,7 @@
           data: null,
           render: function (data, type, row) {
             return (
-              "<a class='delete' href='/tag/delete/" +
+              "<a class='delete' href='/product/delete/" +
               data._id +
               "'><i class='bx bx-eraser'></i></a>"
             );
@@ -97,4 +139,4 @@
       ],
     });
   });
-</script> -->
+</script>

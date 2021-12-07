@@ -10,9 +10,9 @@ router
   .post(CategoryController.getCategories);
 
 router
-  .route("/add")
-  .get(CategoryController.addCategoryPage)
-  .post(CategoryController.addCategory);
+  .route("/new")
+  .get(CategoryController.newCategoryPage)
+  .post(CategoryController.newCategory);
 
 router
   .route("/update/:categoryId")

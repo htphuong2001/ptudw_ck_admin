@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.route("/").get(TagController.indexPage).post(TagController.getTags);
 
-router.route("/add").get(TagController.addTagPage).post(TagController.addTag);
+router.route("/new").get(TagController.newTagPage).post(TagController.newTag);
 
 router
   .route("/update/:tagId")

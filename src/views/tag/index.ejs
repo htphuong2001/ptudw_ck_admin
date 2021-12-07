@@ -4,16 +4,13 @@
   rel="stylesheet"
   href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"
 />
-<link
-  rel="stylesheet"
-  href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"
-/>
 
 <link rel="stylesheet" href="/assets/css/custom-datatable.css" />
+
 <%- contentFor('body') %>
 <div class="breadcrumb">
   <div class="page-title">Tag</div>
-  <a href="/tag/add" class="btn-full bg-success"
+  <a href="/tag/new" class="btn-full bg-success"
     ><i class="bx bx-book-add"></i> New</a
   >
 </div>
@@ -22,11 +19,10 @@
   <table id="table" class="display nowrap" style="width: 100%">
     <thead>
       <tr>
-        <th style="min-width: 20px"></th>
-        <th class="all">Tag</th>
-        <th class="no-sort all" style="max-width: 150px">Category</th>
-        <th class="no-sort btn all"></th>
-        <th class="no-sort btn all"></th>
+        <th>Tag</th>
+        <th class="no-sort" style="max-width: 150px">Category</th>
+        <th class="no-sort btn"></th>
+        <th class="no-sort btn"></th>
       </tr>
     </thead>
     <tbody></tbody>
@@ -35,7 +31,6 @@
 
 <%- contentFor('js_body') %>
 <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 
 <script>
   $(document).ready(function () {
@@ -49,31 +44,22 @@
       searching: false,
       lengthChange: false,
       pageLength: 5,
-      responsive: {
-        details: {
-          type: "column",
-        },
-      },
       columnDefs: [
-        {
-          className: "dtr-control",
-          orderable: false,
-          targets: 0,
-        },
         {
           orderable: false,
           targets: "no-sort",
         },
-        {
-          defaultContent: "-",
-          targets: "_all",
-        },
       ],
-      order: [1, "asc"],
+      order: [0, "asc"],
       columns: [
-        { data: "" },
         { data: "name" },
-        { data: "category.name" },
+        {
+          data: "category",
+          render: function (data, type, row) {
+            if (data) return data.name;
+            else return "";
+          },
+        },
         {
           data: null,
           render: function (data, type, row) {
