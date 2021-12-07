@@ -4,6 +4,8 @@ const Schema = mongoose.Schema;
 const TagSchema = new Schema({
   name: {
     type: String,
+    required: true,
+    trim: true,
   },
   category: {
     default: null,

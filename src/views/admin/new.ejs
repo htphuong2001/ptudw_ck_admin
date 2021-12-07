@@ -1,0 +1,54 @@
+<%- contentFor('css_body') %> <%- contentFor('body') %>
+<div class="breadcrumb">
+  <div class="page-title">New Admin</div>
+  <a href="/admin" class="btn-full bg-primary"
+    ><i class="bx bx-exit bx-rotate-180"></i>Exit</a
+  >
+</div>
+
+<div class="page-body">
+  <form id="admin-form" class="form-main row" action="/admin/new" method="post">
+    <div class="form-control col-12 col-sm-8 col-md-6">
+      <label for="username">Username:</label>
+      <input
+        type="text"
+        placeholder="Enter username"
+        name="username"
+        id="username"
+      />
+    </div>
+    <div class="form-control col-12 col-sm-8 col-md-6">
+      <label for="email">Email:</label>
+      <input type="text" placeholder="Enter email" name="email" id="email" />
+    </div>
+    <div class="form-btn col-12">
+      <button type="submit" class="btn-full bg-success">
+        <i class="bx bx-save"></i> Save
+      </button>
+    </div>
+  </form>
+</div>
+
+<%- contentFor('js_body') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#admin-form").validate({
+      rules: {
+        username: "required",
+        email: {
+          required: true,
+          email: true,
+        },
+      },
+      messages: {
+        username: "You need to enter username",
+        email: {
+          required: "You need to enter email",
+          email: "Invalid email",
+        },
+      },
+    });
+  });
+</script>

@@ -45,7 +45,32 @@ const login = async (req, res, next) => {
   }
 };
 
+const logout = (req, res, next) => {
+  res.clearCookie("jwt_token");
+  res.redirect("/");
+};
+
+const getProfilePage = async (req, res, next) => {
+  try {
+    const { username } = req.user;
+    const user = await Admin.findOne({ username });
+    res.render("admin/profile", { title: "Profile", user });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updateProfile = async (req, res, next) => {
+  try {
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   loginPage,
   login,
+  logout,
+  getProfilePage,
+  updateProfile,
 };

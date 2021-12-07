@@ -1,10 +1,15 @@
+<% const src = user.avatar ? user.avatar : '/assets/img/default-avatar.jpg' %>
 <div class="navbar">
   <div class="user-box">
     <div class="avatar">
-      <img src="/assets/img/htp.jpg" alt="" />
+      <img src="<%= src %>" alt="" />
     </div>
-    <div class="firstname">Zoro</div>
-    <i class="bx bxs-down-arrow"></i>
+    <div class="firstname"><%= user.username %></div>
+    <i id="user-btn" class="bx bxs-down-arrow"></i>
+    <div id="user-list">
+      <a href="/auth/me">Profile</a>
+      <a href="/auth/logout">Logout</a>
+    </div>
   </div>
   <i id="open-sidebar" class="bx bx-menu"></i>
 </div>

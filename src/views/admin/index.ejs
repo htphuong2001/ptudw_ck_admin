@@ -1,0 +1,128 @@
+<%- contentFor('css_body') %>
+<!-- Datatable  -->
+<link
+  rel="stylesheet"
+  href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css"
+/>
+
+<link rel="stylesheet" href="/assets/css/custom-datatable.css" />
+<%- contentFor('body') %>
+<div class="breadcrumb">
+  <div class="page-title">Admin</div>
+  <a href="/admin/new" class="btn-full bg-success"
+    ><i class="bx bx-book-add"></i>New</a
+  >
+</div>
+
+<div class="page-body">
+  <table id="table" class="display responsive" style="width: 100%">
+    <thead>
+      <tr>
+        <th style="min-width: 20px"></th>
+        <th class="no-sort min-tablet-p" style="min-width: 40px">Avatar</th>
+        <th class="all" style="min-width: 140px">Username</th>
+        <th class="no-sort min-tablet-l" style="min-width: 200px">Email</th>
+        <th class="no-sort min-desktop">Fullname</th>
+        <th class="no-sort all" style="min-width: 50px; max-width: 80px">
+          Role
+        </th>
+        <th class="no-sort all" style="min-width: 40px">Status</th>
+        <th class="no-sort btn all" style="min-width: 15px"></th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<%- contentFor('js_body') %>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $("#table").DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: "/admin",
+        type: "POST",
+      },
+      searching: false,
+      lengthChange: false,
+      pageLength: 5,
+      responsive: {
+        details: {
+          type: "column",
+        },
+      },
+      columnDefs: [
+        {
+          className: "dtr-control",
+          orderable: false,
+          targets: 0,
+        },
+        {
+          orderable: false,
+          targets: "no-sort",
+        },
+      ],
+      order: [2, "asc"],
+      columns: [
+        {
+          data: null,
+          render: function (data, type, row) {
+            return "";
+          },
+        },
+        {
+          data: "avatar",
+          render: function (data, type, row) {
+            var src = data ? data : "/assets/img/default-avatar.jpg";
+            return (
+              "<img src='" +
+              src +
+              "' height='30' width='30' style='border-radius: 50%; border: 2px solid #eee'/>"
+            );
+          },
+        },
+        { data: "username" },
+        { data: "email" },
+        {
+          data: "fullname",
+          render: function (data, type, row) {
+            if (data) return data;
+            else return "";
+          },
+        },
+        { data: "role" },
+        {
+          data: "is_lock",
+          render: function (data, type, row) {
+            var status = data ? "Active" : "Lock";
+            return (
+              "<a style='font-size: 1.4rem' class='fix' href='/admin/update/" +
+              data._id +
+              "'>" +
+              status +
+              "</a>"
+            );
+          },
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return (
+              "<a class='delete' href='/admin/delete/" +
+              data._id +
+              "'><i class='bx bx-eraser'></i></a>"
+            );
+          },
+        },
+      ],
+    });
+  });
+</script>

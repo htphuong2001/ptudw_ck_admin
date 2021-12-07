@@ -4,9 +4,12 @@ const Schema = mongoose.Schema;
 const ProductSchema = new Schema({
   name: {
     type: String,
+    required: true,
+    trim: true,
   },
   dev: {
     type: String,
+    trim: true,
   },
   release: {
     type: Date,

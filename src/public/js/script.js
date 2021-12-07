@@ -13,4 +13,8 @@ $(document).ready(function () {
     $(".sidebar").removeClass("active");
     $(".main-page").removeClass("active");
   });
+
+  $("#user-btn").click(function () {
+    $("#user-list").toggleClass("active");
+  });
 });

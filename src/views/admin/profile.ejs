@@ -1,0 +1,95 @@
+<%- contentFor('css_body') %> <%- contentFor('body') %>
+<div class="breadcrumb">
+  <div class="page-title">Profile</div>
+  <a href="/" class="btn-full bg-primary"
+    ><i class="bx bx-exit bx-rotate-180"></i>Exit</a
+  >
+</div>
+
+<div class="page-body">
+  <form
+    id="admin-form"
+    class="form-main row"
+    action="/auth/me"
+    method="post"
+    enctype="multipart/form-data"
+  >
+    <div class="form-control col-12">
+      <label for="img">Avatar:</label>
+      <div class="avatar-upload">
+        <div class="avatar-preview user">
+          <img
+            id="imagePreview"
+            src="<%= user.avatar ? user.avatar : '/assets/img/default-avatar.jpg'%>"
+            alt=""
+          />
+        </div>
+        <div class="avatar-edit">
+          <input type="file" name="img" id="imageUpload" accept="image/*" />
+          <label for="imageUpload" class="btn-full">
+            <i class="bx bx-image-add"></i> Choose a photo
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-control col-12 col-sm-8 col-md-6">
+      <label for="fullname">Fullname:</label>
+      <input
+        type="text"
+        placeholder="Update username"
+        name="fullname"
+        id="fullname"
+        value="<%= user.fullname %>"
+      />
+    </div>
+    <div class="form-control col-12 col-sm-8 col-md-6">
+      <label for="email">Email:</label>
+      <input type="text" name="email" id="email" value="<%= user.email %>" />
+    </div>
+
+    <div class="form-btn col-12">
+      <button type="submit" class="btn-full bg-success">
+        <i class="bx bx-save"></i> Save
+      </button>
+    </div>
+  </form>
+</div>
+
+<%- contentFor('js_body') %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+
+<script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $("#imagePreview").attr("src", e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+  $(document).ready(function () {
+    $("#imageUpload").change(function () {
+      readURL(this);
+    });
+
+    $("#product-form").validate({
+      rules: {
+        name: "required",
+        price: {
+          required: "true",
+          number: true,
+          min: 0,
+        },
+        discount: {
+          required: "true",
+          number: true,
+          min: 0,
+        },
+      },
+      messages: {
+        name: "You need to enter tag name",
+      },
+    });
+  });
+</script>

@@ -14,6 +14,7 @@ const authRouter = require("./routes/auth");
 const categoryRouter = require("./routes/category");
 const tagRouter = require("./routes/tag");
 const productRouter = require("./routes/product");
+const adminRouter = require("./routes/admin");
 
 const app = express();
 const port = process.env.PORT;
@@ -40,6 +41,7 @@ app.use(logger("dev"));
 app.use("/category", auth.checkLogin, categoryRouter);
 app.use("/tag", auth.checkLogin, tagRouter);
 app.use("/product", auth.checkLogin, productRouter);
+app.use("/admin", auth.checkLogin, adminRouter);
 app.use("/auth", authRouter);
 app.use("/", auth.checkLogin, indexRouter);
 

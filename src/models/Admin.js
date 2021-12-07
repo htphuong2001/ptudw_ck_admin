@@ -19,7 +19,6 @@ const AdminSchema = new Schema({
   },
   fullname: {
     type: String,
-    required: true,
     trim: true,
   },
   password: {
@@ -29,8 +28,8 @@ const AdminSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["user", "admin", "sa"],
-    default: "user",
+    enum: ["admin", "sa"],
+    default: "admin",
   },
   avatar: {
     type: String,
@@ -39,6 +38,10 @@ const AdminSchema = new Schema({
   avatar_id: {
     type: String,
     default: null,
+  },
+  is_lock: {
+    type: Boolean,
+    default: true,
   },
   createdAt: {
     type: Date,

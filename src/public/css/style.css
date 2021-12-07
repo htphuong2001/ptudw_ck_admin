@@ -227,6 +227,7 @@ a {
   cursor: pointer;
   color: #fff;
   font-size: 1.3rem;
+  position: relative;
 }
 
 .navbar .user-box > * {
@@ -245,7 +246,34 @@ a {
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  border: 1px solid #fff;
+}
+
+#user-list {
+  position: absolute;
+  background-color: #eee;
+  color: #000;
+  bottom: 0;
+  right: -10px;
+  transform: translateY(100%);
+  border-radius: 5px;
+  padding: 5px 20px;
+  font-size: 1.4rem;
+  display: none;
+}
+
+#user-list.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#user-list > * {
+  height: 30px;
+  opacity: 0.7;
+}
+
+#user-list > *:hover {
+  opacity: 1;
 }
 
 /* navbar */
@@ -365,6 +393,10 @@ a {
   width: 300px;
   aspect-ratio: 4/5;
   margin-right: 20px;
+}
+
+.avatar-preview.user {
+  aspect-ratio: 1/1;
 }
 
 .avatar-preview img {
