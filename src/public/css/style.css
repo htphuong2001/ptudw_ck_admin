@@ -320,6 +320,10 @@ a {
   background: #113cfc;
 }
 
+.bg-warn {
+  background: orange;
+}
+
 .form-main {
   font-size: 1.4rem;
   width: 100%;
@@ -390,7 +394,7 @@ a {
 }
 
 .avatar-preview {
-  width: 300px;
+  width: 250px;
   aspect-ratio: 4/5;
   margin-right: 20px;
 }

@@ -62,6 +62,17 @@ const getProfilePage = async (req, res, next) => {
 
 const updateProfile = async (req, res, next) => {
   try {
+    const { username } = req.user;
+    const updateUser = req.body;
+    if (req.file) {
+      updateUser.avatar = req.file.path;
+      updateUser.avatar_id = req.file.filename;
+      if (req.user.img_id) {
+        await cloudinary.uploader.destroy(req.user.img_id);
+      }
+    }
+    await Admin.findOneAndUpdate({ username }, updateUser);
+    res.redirect("/auth/me");
   } catch (error) {
     next(error);
   }

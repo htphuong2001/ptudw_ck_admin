@@ -1,5 +1,6 @@
 const express = require("express");
 const auth = require("../middlewares/auth");
+const upload = require("../middlewares/upload");
 
 const router = express.Router();
 
@@ -12,6 +13,6 @@ router.route("/logout").get(AuthController.logout);
 router
   .route("/me")
   .get(auth.checkLogin, AuthController.getProfilePage)
-  .post(AuthController.updateProfile);
+  .post(auth.checkLogin, upload.single("avatar"), AuthController.updateProfile);
 
 module.exports = router;
