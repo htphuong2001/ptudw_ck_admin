@@ -17,7 +17,7 @@ const productRouter = require("./routes/product");
 const adminRouter = require("./routes/admin");
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 8080;
 
 // Connect database
 mongoDB.connect();
