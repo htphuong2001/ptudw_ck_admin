@@ -55,9 +55,36 @@ const newAdmin = async (req, res, next) => {
   }
 };
 
+const updateAdmin = async (req, res, next) => {
+  try {
+    const { adminId } = req.params;
+    if (req.user._id != adminId && req.user.role == "sa") {
+      const user = await Admin.findById(adminId);
+      await Admin.findByIdAndUpdate(adminId, { is_lock: !user.is_lock });
+    }
+    res.redirect("/admin");
+  } catch (error) {
+    next(error);
+  }
+};
+
+const deleteAdmin = async (req, res, next) => {
+  try {
+    const { adminId } = req.params;
+    if (req.user._id != adminId && req.user.role == "sa") {
+      await Admin.findByIdAndDelete(adminId);
+    }
+    res.redirect("/admin");
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   indexPage,
   getAdmins,
   newAdminPage,
   newAdmin,
+  updateAdmin,
+  deleteAdmin,
 };

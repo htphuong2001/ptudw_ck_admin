@@ -9,7 +9,7 @@ const checkLogin = async (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await Admin.findOne({ username: decoded.username });
-    if (user) {
+    if (user && user.is_lock) {
       res.locals.user = req.user = user;
       next();
     } else {

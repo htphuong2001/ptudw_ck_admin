@@ -15,6 +15,8 @@ const categoryRouter = require("./routes/category");
 const tagRouter = require("./routes/tag");
 const productRouter = require("./routes/product");
 const adminRouter = require("./routes/admin");
+const orderRouter = require("./routes/order");
+const userRouter = require("./routes/user");
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -43,6 +45,8 @@ app.use("/tag", auth.checkLogin, tagRouter);
 app.use("/product", auth.checkLogin, productRouter);
 app.use("/admin", auth.checkLogin, adminRouter);
 app.use("/auth", authRouter);
+app.use("/order", auth.checkLogin, orderRouter);
+app.use("/user", auth.checkLogin, userRouter);
 app.use("/", auth.checkLogin, indexRouter);
 
 // catch 404 and forward to error handler

@@ -43,6 +43,10 @@ const AdminSchema = new Schema({
     type: Boolean,
     default: true,
   },
+  token: {
+    type: String,
+    default: null,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

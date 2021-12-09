@@ -1,7 +1,10 @@
 require("dotenv").config();
 const md5 = require("md5");
 const jwt = require("jsonwebtoken");
+const generator = require("generate-password");
+const { sendLinkResetPassword } = require("../utils/mail");
 const Admin = require("../models/Admin");
+const cloudinary = require("../config/cloudinary");
 
 const loginPage = (req, res) => {
   res.render("pages/login", {
@@ -78,10 +81,136 @@ const updateProfile = async (req, res, next) => {
   }
 };
 
+const changePassword = async (req, res, next) => {
+  try {
+    const { username } = req.user;
+    const { password, newPassword } = req.body;
+    const user = await Admin.findOne({ username, password: md5(password) });
+    if (user) {
+      await Admin.findOneAndUpdate(
+        { username },
+        { password: md5(newPassword) }
+      );
+      res.redirect("/auth/me");
+    } else {
+      res.render("admin/profile", {
+        title: "Profile",
+        info: "Change pass word not success",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+const recoverPasswordPage = (req, res, next) => {
+  res.render("pages/password-recover", {
+    layout: false,
+    title: "Recover password",
+  });
+};
+
+const recoverPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const user = await Admin.findOne({ email });
+    if (user) {
+      const token = generator.generate({
+        length: 20,
+        numbers: true,
+      });
+      const link = `${req.get("origin")}/auth/password-reset/${
+        user._id
+      }/${token}`;
+      await Promise.all([
+        Admin.findOneAndUpdate({ email }, { token }),
+        sendLinkResetPassword(email, link),
+      ]);
+
+      setTimeout(async () => {
+        try {
+          Admin.findOneAndUpdate({ email }, { token: null });
+        } catch (error) {
+          next(error);
+        }
+      }, 5000 * 60);
+
+      res.locals.notification = "Check your email";
+    } else {
+      res.locals.notification = "Email is not correct";
+    }
+
+    res.render("pages/password-recover", {
+      layout: false,
+      title: "Forgot password",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const resetPasswordPage = async (req, res, next) => {
+  try {
+    const { userId, token } = req.params;
+    const user = await Admin.findOne({ _id: userId, token });
+    if (user) {
+      res.render("pages/password-reset", {
+        layout: false,
+        title: "Reset password",
+        userId,
+        token,
+      });
+    }
+    next(createError.NotFound());
+  } catch (error) {
+    next(error);
+  }
+};
+
+const resetPassword = async (req, res, next) => {
+  try {
+    const { userId, token } = req.params;
+    const { password, passwordAgain } = req.body;
+    if (password != passwordAgain) {
+      res.render("pages/password-reset", {
+        layout: false,
+        title: "Reset password",
+        notification: "Password does not match",
+        userId,
+        token,
+      });
+    } else {
+      const user = await Admin.findOne({ _id: userId, token });
+      if (user) {
+        await Admin.findByIdAndUpdate(userId, {
+          password: md5(password),
+          token: null,
+        });
+        res.redirect("/");
+      } else {
+        res.render("pages/password-reset", {
+          layout: false,
+          title: "Reset password",
+          notification: "Token expired",
+          userId,
+          token,
+        });
+      }
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   loginPage,
   login,
   logout,
   getProfilePage,
   updateProfile,
+  changePassword,
+  recoverPasswordPage,
+  recoverPassword,
+  resetPasswordPage,
+  resetPassword,
 };
